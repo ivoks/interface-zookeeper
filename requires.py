@@ -42,9 +42,12 @@ class ZookeeperRequires(RelationBase):
         for conv in self.conversations():
             port = conv.get_remote('port')
             rest_port = conv.get_remote('rest_port')
+            host = conv.get_remote('host')
+            if not host:
+                host = conv.get_remote('private-address')
             if port:
                 zks.append({
-                    'host': conv.get_remote('private-address'),
+                    'host': host,
                     'port': port,
                     'rest_port': rest_port
                 })
